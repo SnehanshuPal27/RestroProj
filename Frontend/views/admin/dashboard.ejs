@@ -1,0 +1,47 @@
+<main>
+  <%- include('../partials/adminSidebar') %>
+
+  <div id="main-wrapper">
+    <div class="bg-white shadow-sm p-3">
+      <span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+      <h5 class="m-0 color-theme d-inline-block">Dashboard</h5>
+    </div>
+
+    <div class="d-flex gap-3 flex-wrap m-4 text-white">
+      <div class="bg-primary rounded p-3" style="width: 250px; background-color: rgb(228, 228, 228) !important; border: 2px solid rgba(0, 123, 255) !important;">
+        <div class="fs-1" style="color: #141E46;"><%= currentUser.managerCount !== undefined ? currentUser.managerCount : 0 %></div>
+        <div class="fs-5" style="font-size: 1.25rem !important; color: #141E46;">Managers</div>
+      </div>
+
+      <div class="bg-success rounded p-3" style="width: 250px; background-color: rgb(228, 228, 228) !important; border: 2px solid rgba(40, 167, 69) !important;">
+        <div class="fs-1" style="color: #141E46;"><%= currentUser.totalchefCount !== undefined ? currentUser.totalchefCount : 0 %></div>
+        <div class="fs-5" style="font-size: 1.25rem !important; color: #141E46;">Chefs</div>
+      </div>
+
+      <div class="bg-primary rounded p-3" style="width: 250px; background-color: rgb(228, 228, 228) !important; border: 2px solid rgba(0, 123, 255) !important;">
+        <div class="fs-1" style="color: #141E46;"><%= currentUser.serverCount !== undefined ? currentUser.serverCount : 0 %></div>
+        <div class="fs-5" style="font-size: 1.25rem !important; color: #141E46;">Servers</div>
+      </div>
+
+      <div class="bg-success rounded p-3" style="width: 250px; background-color: rgb(228, 228, 228) !important; border: 2px solid rgba(40, 167, 69) !important;">
+        <div class="fs-1" style="color: #141E46;"><%= currentUser.tableCount !== undefined ?  currentUser.tableCount : 0 %></div>
+        <div class="fs-5" style="font-size: 1.25rem !important; color: #141E46;">Tables Available</div>
+      </div>
+
+      <div class="bg-warning rounded p-3" style="width: 250px; background-color: rgb(228, 228, 228) !important; border: 2px solid rgba(255, 193, 7) !important;">
+        <div class="fs-1" style="color: #141E46;"><%= currentUser.reservationCount !== undefined ? currentUser.reservationCount : 0 %></div>
+        <div class="fs-5" style="font-size: 1.25rem !important; color: #141E46;">Reservations</div>
+      </div>
+
+      <div class="bg-danger rounded p-3" style="width: 250px; background-color: rgb(228, 228, 228) !important; border: 2px solid rgba(220, 53, 69) !important;">
+        <div class="fs-1" style="color: #141E46;"><%= currentUser.totalOrderCount !== undefined ? currentUser.totalOrderCount : 0 %></div>
+        <div class="fs-5" style="font-size: 1.25rem !important; color: #141E46;">Total Orders</div>
+      </div>
+
+      <!-- <div class="bg-success rounded p-3" style="width: 250px; background-color: rgb(228, 228, 228) !important; border: 2px solid rgba(40, 167, 69) !important;">
+        <div class="fs-1" style="color: #141E46;"><%= numCollectedDonations !== undefined ? numCollectedDonations : 0 %></div>
+        <div class="fs-5" style="font-size: 1.25rem !important; color: #141E46;">donations collected</div>
+      </div> -->
+    </div>
+  </div>
+</main>

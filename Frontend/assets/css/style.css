@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --theme-color: #141e46;
+  --color-secondary: #c70039;
+  --color-tertiary: #ff6969;
+  --color-primary: #fff5e0;
+}
+
+body {
+  height: 100vh;
+  background-color: hsl(0, 0%, 95%);
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+}
+
+header {
+  background-color: var(--theme-color);
+  height: 70px;
+  font-weight: 500;
+}
+header .nav-link {
+  color: white !important;
+  padding-left: 25px !important;
+}
+header #navbarSupportedContent {
+  background-color: var(--theme-color);
+}
+header .nav-link:hover {
+  transition: 0.3s;
+  scale: 1.1;
+  color: var(--color-tertiary) !important;
+}
+header .user-icon {
+  padding: 0.4rem;
+  color: white !important;
+  border-radius: 50%;
+  border: 2px solid white;
+  width: 40px;
+  text-align: center;
+  margin-left: 20px;
+}
+header .navbar-toggler:focus {
+  box-shadow: none;
+}
+
+footer {
+  background-color: var(--theme-color);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+
+.bg-img-1 {
+  min-height: calc(50vh - 50px);
+  background: url("/assets/images/img-1.jpg") no-repeat center;
+  background-size: cover;
+}
+.bg-img-2 {
+  min-height: calc(50vh - 50px);
+  background: url("/assets/images/img-2.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.color-theme {
+  color: var(--theme-color);
+}
+
+.btn {
+  padding: 6px 15px;
+  font-size: 18px;
+  color: white;
+  background-color: var(--theme-color);
+  /* border-radius: 0px; */
+}
+.btn-danger {
+  background-color: rgb(223, 28, 28);
+}
+.btn:hover {
+  box-shadow: 2px 3px 4px 0px grey;
+  color: white;
+}
+
+#carousel img {
+  width: 100vw;
+  height: calc(100vh - 50px);
+  object-fit: cover;
+  object-position: center;
+}
+#carousel .carousel-control-prev-icon,
+#carousel .carousel-control-next-icon {
+  transform: scaleX(1.5) scaleY(2);
+  background-color: #000000;
+  cursor: pointer;
+}
+
+.form-date-input {
+  display: block;
+  width: 100%;
+  padding: 6px;
+  border-radius: 4px;
+  border: 2px solid #ced4da;
+}
+.form-date-input:focus {
+  box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+  outline: none;
+}
+
+.text-pending {
+  color: rgb(243, 172, 18) !important;
+}
+.text-rejected {
+  color: var(--color-secondary) !important;
+}
+.text-accepted {
+  color: green !important;
+}
+.text-assigned {
+  color: blue !important;
+}
+.text-collected {
+  color: #3f51b5 !important;
+}
+
+.alerts-wrapper {
+  position: absolute;
+  right: 0px;
+  width: fit-content;
+  font-weight: bold;
+  animation: moveLeft 0.1s linear;
+  z-index: 100;
+}
+
+.alerts-wrapper .alert-danger {
+  color: white;
+  background-color: #e22a2a;
+}
+.alerts-wrapper .alert-success {
+  color: white;
+  background-color: #1fa64e;
+}
+
+.logo {
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.joinus {
+  border: 2px solid white;
+}
+
+.joinus:hover {
+  background-color: white;
+  border: 2px solid white;
+  color: var(--theme-color);
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+@keyframes moveLeft {
+  from {
+    right: -100px;
+  }
+  to {
+    right: 0px;
+  }
+}
+
+
+.grayscale-image {
+  filter: grayscale(100%);
+}
+
+
+

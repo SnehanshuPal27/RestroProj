@@ -1,0 +1,107 @@
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+<main>
+	<%- include('../partials/adminSidebar') %>
+	
+	<div id="main-wrapper">
+		
+		<div class="bg-white shadow-sm p-3">
+			<span class="me-3" id="sidebar-toggler-btn"><i class="fas fa-bars"></i></span>
+			<h5 class="m-0 color-theme d-inline-block">Assign agent</h5>
+		</div>
+		
+		<div class="row">
+		<div class="col-4">
+		<form action="/admin/donation/assign/<%= donation._id %>"      
+			method="POST"
+			class="border ms-3 my-3 p-4 bg-white rounded-2"
+			style="
+			  min-width: 500px;
+			  max-width: 600px;
+			  border-width: 1px !important;
+			  border-color: #141e46 !important;
+			  margin-right: 0;
+			">
+			
+			<div class="row">
+				<div class="mb-4 col-sm-4">
+					<label for="donor" class="form-label">Donor name</label>
+					<input type="text" class="form-control" id="donor" value="<%= donation.donor.firstName + ' ' + donation.donor.lastName %>" disabled>
+				</div>
+				
+				<div class="mb-4 col-sm-8">
+					<label for="address" class="form-label">Address</label>
+					<input type="text" class="form-control" id="address" value= "<%= donation.address %>" disabled>
+				</div>
+			</div>
+			
+			<div class="mb-4">
+				<label for="agent" class="form-label">Select Agent</label>
+				
+				<%const lat1=donation.latitude;%>
+				<%const lon1=donation.longitude;%>
+				<%let arr=[];%>
+				<%let dic={};%>
+				<%let amount=0;%>
+				<select name="agent" class="form-select" id="agent">
+					<% for(let i=0; i<agents.length; i++) { %>
+						<% const lat2=agents[i].latitude %>
+						<% const lon2=agents[i].longitude %>	
+
+						<% const R = 6371; // Radius of the Earth in kilometers %>
+						<% const dLat = (lat2 - lat1) * Math.PI / 180; // Difference in latitude %>
+						<% const dLon = (lon2 - lon1) * Math.PI / 180; // Difference in longitude %>
+						<% const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *Math.sin(dLon / 2) * Math.sin(dLon / 2); %>
+						<% const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); %>
+						<% const distance = R * c; // Distance in kilometers %>
+						<% dic[agents[i]._id] = distance; %>
+						<%arr.push(distance);%>
+						<!-- <%console.log(Math.round(distance * 100) / 100);%> -->
+						<option value="<%= agents[i]._id %>"><%= agents[i].firstName + " " + agents[i].lastName +" is " %><span>&nbsp;</span><%= distance.toFixed(2)+" kilometres away" %></option>
+						<!-- <%console.log("Agent will get: "+distance*10+ " rs.");%> -->
+					<% } %>
+					<%arr.sort();%>
+				
+
+				</select>
+			</div>
+			
+			<div class="mb-4">
+				<label for="msg" class="form-label">Message to Agent</label>
+				<textarea type="text" name="adminToAgentMsg" class="form-control" id="msg" placeholder="You can write here some msg.."></textarea>
+			</div>
+			
+			<button type="submit" class="btn w-75 d-block m-auto mt-4">Assign</button>
+		</form>
+	</div>
+		<div id="map" class="w-75 border my-3 mx-5 bg-white rounded-3 col" style="height: 600px; margin-left: 0;"></div>
+	</div>
+	</div>
+</main>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWloaXIxMDUzIiwiYSI6ImNsczlzeXk3MjA5ejAya25xajUzcjkwenMifQ.eievf1bHUoEuCIn0WjYn4A';
+	const donation = JSON.parse('<%- JSON.stringify(donation) %>');
+	console.log(donation);
+    // Initialize the map
+    const map = new mapboxgl.Map({
+
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [donation.longitude, donation.latitude], // Center the map initially
+        zoom: 12 // Initial zoom level
+    });
+	
+	// Add markers for each agent
+	
+
+    const agents = JSON.parse('<%- JSON.stringify(agents) %>');
+	
+    // Add markers for each agent
+    agents.forEach(agent => {
+        new mapboxgl.Marker()
+            .setLngLat([agent.longitude, agent.latitude])
+            .addTo(map);
+    });
+</script>
