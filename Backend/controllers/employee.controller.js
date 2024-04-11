@@ -24,6 +24,7 @@ const getCountChef=async (req, res) => {
 
 const getEmployees = async (req, res) => {
   try {
+    console.log("reciving getall emp controller")
     const employees = await employeeModel.getAll();
     res.status(200).send(employees);
   } catch (err) {

@@ -9,6 +9,17 @@ const getMenuItems = async (req, res) => {
   }
 };
 
+const getMenuItemIngridient = async (req, res) => {
+  try {
+    console.log("in menu cotroller ingriedeints")
+    const menuItems = await menuModel.getMenuItemIngridient(req.params.id);
+    console.log(`got id:${req.params.id}`)
+    res.status(200).send(menuItems);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
 const getMenuItem = async (req, res) => {
   try {
     const menuItemId = req.params.id;
@@ -59,4 +70,4 @@ const deleteMenuItem = async (req, res) => {
   }
 };
 
-export { getMenuItems, getMenuItem, createMenuItem, updateMenuItem, deleteMenuItem };
+export { getMenuItems, getMenuItem, createMenuItem, updateMenuItem, deleteMenuItem,getMenuItemIngridient };

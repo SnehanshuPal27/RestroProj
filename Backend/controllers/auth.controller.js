@@ -5,6 +5,7 @@ import * as employeeModel from '../models/employee.model.js';
 
 const signup = async (req, res) => {
   try {
+    console.log("signup called")
     const { name, email, password, role,hireDate,salary } = req.body;
 
     const salt = await bcrypt.genSalt(10);
@@ -22,6 +23,7 @@ const signup = async (req, res) => {
     const employeeId = await employeeModel.create(newEmployee);
     res.status(201).send({ id: employeeId, message: 'Employee created successfully' });
   } catch (err) {
+    console.log("error in signup fxn")
     res.status(500).send({ message: err.message });
   }
 };

@@ -20,6 +20,19 @@ const getOrders = async (req, res) => {
   }
 };
 
+const getHighestOrderIndex = async (req, res) => {
+  try {
+    console.log("in controller order")
+    const orders = await orderModel.getHighestOrderIndex();
+    console.log(orders)
+    res.status(200).send(orders);
+  } catch (err) {
+    console.log("in controller order error")
+    res.status(500).send({ message: err.message });
+  }
+};
+
+
 
 const getOrder = async (req, res) => {
   try {
@@ -34,10 +47,23 @@ const getOrder = async (req, res) => {
   }
 };
 
+
+
 const createOrder = async (req, res) => {
   try {
     const newOrderData = req.body;
     const orderId = await orderModel.create(newOrderData);
+    res.status(201).send({ id: orderId, message: 'Order created successfully' });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+const createOrderItem = async (req, res) => {
+  try {
+    const newOrderData = req.body;
+    console.log(newOrderData)
+    const orderId = await orderModel.createOrderItem(newOrderData);
     res.status(201).send({ id: orderId, message: 'Order created successfully' });
   } catch (err) {
     res.status(500).send({ message: err.message });
@@ -71,4 +97,4 @@ const deleteOrder = async (req, res) => {
   }
 };
 
-export { getOrders, getOrder, createOrder, updateOrder, deleteOrder,getCountOrders };
+export { getOrders, getOrder, createOrder, updateOrder, deleteOrder,getCountOrders,getHighestOrderIndex,createOrderItem };

@@ -9,6 +9,25 @@ const getCustomers = async (req, res) => {
   }
 };
 
+const getHighestCustomerIndex = async (req, res) => {
+  try {
+    console.log("in controller customer");
+    const orders = await customerModel.getHighestIndex();
+    
+    if (orders.length > 0) {
+      const result = orders[0][0];
+      console.log(result);
+      res.send(result);
+    } else {
+      res.send({ message: "No customers found." });
+    }
+  } catch (err) {
+    console.log("in controller customer error");
+    res.status(500).send({ message: err.message });
+  }
+};
+
+
 const getCustomer = async (req, res) => {
   try {
     const customerId = req.params.id;
@@ -25,6 +44,7 @@ const getCustomer = async (req, res) => {
 const createCustomer = async (req, res) => {
   try {
     const newCustomerData = req.body;
+    console.log(newCustomerData)
     const customerId = await customerModel.create(newCustomerData);
     res.status(201).send({ id: customerId, message: 'Customer created successfully' });
   } catch (err) {
@@ -59,4 +79,4 @@ const deleteCustomer = async (req, res) => {
   }
 };
 
-export { getCustomers, getCustomer, createCustomer, updateCustomer, deleteCustomer };
+export { getCustomers, getCustomer, createCustomer, updateCustomer, deleteCustomer,getHighestCustomerIndex };

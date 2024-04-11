@@ -97,6 +97,7 @@ const remove = (employeeId) => {
 };
 
 const create = (employeeData) => {
+  console.log("reached create")
   return new Promise((resolve, reject) => {
     pool.query('INSERT INTO employees SET ?', [employeeData], (err, result) => {
       if (err) {

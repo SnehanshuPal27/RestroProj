@@ -13,6 +13,10 @@ app.set("view engine", "ejs");
 // Use expressLayouts middleware
 app.use(expressLayouts);
 
+app.get("/tryForm",(req,res)=>{
+    res.render("admin/employeeList.ejs",{ layout: "./layout" })
+})
+
 app.get("/", (req, res) => {
     res.render("login", { layout: "./layout" });
 });
@@ -27,7 +31,7 @@ app.post("/auth/login", async (req, res) => {
         const data = response.data;
         console.log(data);
         let currentUser = data;
-
+        global.userData=currentUser;
         if (data.role == 'Manager') {
             console.log(currentUser);
             // order numbers
@@ -119,6 +123,37 @@ try {
         res.status(500).send('An error occurred');
     }
 });
+
+app.get("/employeeList",async (req,res)=>{
+    // const user=global.user;
+    try {
+        // console.log("inroute emplist")
+        // console.log(userData)
+        const employeeList = await axios.get(
+            'http://localhost:3000/api/employees',
+            {
+                headers: {
+                    Authorization: userData.accessToken,
+                    userrole:userData.role
+
+                }
+            }
+        );
+        res.render("admin/employeeList.ejs",{ employeeList })
+        
+    } catch (error) {
+        console.log("Error in fetching employeeList:", error);
+    }
+    
+})
+
+app.get("/addNewEmployee",async (req,res)=>{
+    res.render("admin/addEmployee/addEmployee.ejs");
+})
+
+app.get("/addNewEmployeeSend",async(req,res)=>{
+    
+})
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

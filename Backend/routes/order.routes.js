@@ -4,9 +4,11 @@ import * as authMiddleware from '../middleware/auth.middleware.js';
 
 const router = express.Router();
 router.get('/orderCount', [authMiddleware.verifyToken], orderController.getCountOrders);
+router.get('/highestOrderIndex', [authMiddleware.verifyToken],orderController.getHighestOrderIndex)
 router.get('/', [authMiddleware.verifyToken], orderController.getOrders);
 router.get('/:id', [authMiddleware.verifyToken], orderController.getOrder);
-router.post('/', [authMiddleware.verifyToken, authMiddleware.isServer], orderController.createOrder);
+router.post("/createOrderItem",[authMiddleware.verifyToken], orderController.createOrderItem)
+router.post('/', [authMiddleware.verifyToken], orderController.createOrder);
 router.put('/:id', [authMiddleware.verifyToken, authMiddleware.isServer], orderController.updateOrder);
 router.delete('/:id', [authMiddleware.verifyToken, authMiddleware.isManager], orderController.deleteOrder);
 

@@ -2,6 +2,7 @@ import * as inventoryModel from '../models/inventory.model.js';
 
 const getInventory = async (req, res) => {
   try {
+    console.log("in inventory control")
     const inventory = await inventoryModel.getAll();
     res.status(200).send(inventory);
   } catch (err) {
@@ -34,12 +35,14 @@ const createInventoryItem = async (req, res) => {
 
 const updateInventoryItem = async (req, res) => {
   try {
-    const inventoryId = req.params.id;
-    const updatedInventoryItemData = req.body;
-    const result = await inventoryModel.update(inventoryId, updatedInventoryItemData);
-    if (!result) {
+    // const { InventoryID, Quantity } = req.body;
+
+    const result = await inventoryModel.updateInventory(req);
+
+    if (result.message === 'No inventory item found with the provided InventoryID') {
       return res.status(404).send({ message: 'Inventory item not found' });
     }
+
     res.status(200).send({ message: 'Inventory item updated successfully' });
   } catch (err) {
     res.status(500).send({ message: err.message });

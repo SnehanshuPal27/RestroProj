@@ -11,7 +11,7 @@ const getById = async (customerId) => {
 };
 
 const create = async (customerData) => {
-  const [result] = await pool.query('INSERT INTO customers SET ?', customerData);
+  const [result] = await pool.promise().query('INSERT INTO customers SET ?', customerData);
   return result.insertId;
 };
 
@@ -25,4 +25,10 @@ const remove = async (customerId) => {
   return result.affectedRows > 0;
 };
 
-export { getAll, getById, create, update, remove };
+const getHighestIndex=async()=>{
+  const result=await pool.promise().query('SELECT MAX(CustomerID) from Customers ')
+  console.log(result)
+  return result;
+}
+
+export { getAll, getById, create, update, remove ,getHighestIndex};

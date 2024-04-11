@@ -4,9 +4,11 @@ import * as authMiddleware from '../middleware/auth.middleware.js';
 
 const router = express.Router();
 
+router.get('/highestCustomerIndex', [authMiddleware.verifyToken], customerController.getHighestCustomerIndex);
 router.get('/', [authMiddleware.verifyToken], customerController.getCustomers);
+
 router.get('/:id', [authMiddleware.verifyToken], customerController.getCustomer);
-router.post('/', [authMiddleware.verifyToken, authMiddleware.isManager], customerController.createCustomer);
+router.post('/', [authMiddleware.verifyToken], customerController.createCustomer);
 router.put('/:id', [authMiddleware.verifyToken, authMiddleware.isManager], customerController.updateCustomer);
 router.delete('/:id', [authMiddleware.verifyToken, authMiddleware.isManager], customerController.deleteCustomer);
 

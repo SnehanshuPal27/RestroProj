@@ -1,4 +1,4 @@
-<header>
+<!-- <header>
   <nav class="navbar navbar-expand-sm navbar-light p-0 h-100">
     <div class="carousel-item">
       <img src="temp.jpg" class="d-block w-100" alt="..." />
@@ -68,6 +68,86 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/auth/signup">Signup</a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header> -->
+
+<!-- old -->
+
+<header>
+  <nav class="navbar navbar-expand-sm navbar-light p-1.5 h-100" style="background-color: #DC6B19;">
+    <div class="carousel-item">
+      <img src="temp.jpg" class="d-block w-100" alt="..." />
+    </div>
+    <div class="container p-0">
+      <a
+        class="navbar-brand text-white ps-2"
+        href="/"
+        style="
+          border: 2px solid #ffffff;
+          padding: 3px !important;
+          font-weight: bold;
+        "
+        >RESTROMATE</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span><i class="fas fa-bars text-white"></i></span>
+      </button>
+      <div
+        class="collapse navbar-collapse ps-2"
+        id="navbarSupportedContent"
+        style="z-index: 100"
+      >
+        <ul class="navbar-nav ms-auto me-4">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/home/about-us">About us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/home/mission">Our mission</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/home/contact-us">Contact us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/home/volunteer">Volunteer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/home/ngo">NGOs</a>
+          </li>
+
+          <% if (typeof locals.currentUser !== 'undefined' && locals.currentUser) { %>
+            <% if (currentUser && currentUser.type === 'agent') { %>
+              <li class="nav-item"><a class="nav-link text-white" href="/agent/dashboard">Dashboard</a></li>
+            <% } else if (currentUser && currentUser.type === 'donor') { %>
+              <li class="nav-item"><a class="nav-link text-white" href="/donor/dashboard">Dashboard</a></li>
+            <% } else { %>
+              <li class="nav-item"><a class="nav-link text-white" href="/admin/dashboard">Dashboard</a></li>
+            <% } %>
+
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/auth/logout">Logout</a>
+            </li>
+            <a href="/auth/login">
+              <li class="user-icon text-white"><%= currentUser.name %></li>
+            </a>
+          <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/auth/login">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/auth/signup">Signup</a>
             </li>
           <% } %>
         </ul>
