@@ -19,17 +19,17 @@ const getById = async (menuItemId) => {
 };
 
 const create = async (menuItemData) => {
-  const [result] = await pool.promise().query('INSERT INTO menu_items SET ?', menuItemData);
+  const [result] = await pool.promise().query('INSERT INTO MenuItems SET ?', menuItemData);
   return result.insertId;
 };
 
 const update = async (menuItemId, menuItemData) => {
-  const [result] = await pool.promise().query('UPDATE menu_items SET ? WHERE menuItemId = ?', [menuItemData, menuItemId]);
+  const [result] = await pool.promise().query('UPDATE MenuItems SET ? WHERE menuItemId = ?', [menuItemData, menuItemId]);
   return result.affectedRows > 0;
 };
 
 const remove = async (menuItemId) => {
-  const [result] = await pool.promise().query('DELETE FROM menu_items WHERE menuItemId = ?', [menuItemId]);
+  const [result] = await pool.promise().query('DELETE FROM MenuItems WHERE menuItemId = ?', [menuItemId]);
   return result.affectedRows > 0;
 };
 
