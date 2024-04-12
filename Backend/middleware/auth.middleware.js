@@ -31,6 +31,14 @@ const isManager = (req, res, next) => {
   next();
 };
 
+const isServerOrManager = (req, res, next) => {
+  // console.log("in isServerOrManager");
+  // console.log(req.headers.userrole);
+  if (req.headers.userrole !== 'Server' && req.headers.userrole !== 'Manager') {
+    return res.status(403).send({ message: 'Require Server or Manager Role!' });
+  }
+  next();
+};
 const isServer = (req, res, next) => {
   if (req.userRole !== 'Server') {
     return res.status(403).send({ message: 'Require Server Role!' });
@@ -45,4 +53,4 @@ const isChef = (req, res, next) => {
   next();
 };
 
-export { verifyToken, isManager, isServer, isChef };
+export { verifyToken, isManager, isServer, isChef,isServerOrManager };

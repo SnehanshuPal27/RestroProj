@@ -6,8 +6,8 @@ const router = express.Router();
 router.get('/reserveCount', [authMiddleware.verifyToken], reservationController.getReservationCount);
 router.get('/', [authMiddleware.verifyToken], reservationController.getReservations);
 router.get('/:id', [authMiddleware.verifyToken], reservationController.getReservation);
-router.post('/', [authMiddleware.verifyToken, authMiddleware.isServer], reservationController.createReservation);
-router.put('/:id', [authMiddleware.verifyToken, authMiddleware.isServer], reservationController.updateReservation);
-router.delete('/:id', [authMiddleware.verifyToken, authMiddleware.isManager], reservationController.deleteReservation);
+router.post('/', [authMiddleware.verifyToken, authMiddleware.isServerOrManager], reservationController.createReservation);
+router.put('/:id', [authMiddleware.verifyToken, authMiddleware.isServerOrManager], reservationController.updateReservation);
+router.delete('/:id', [authMiddleware.verifyToken, authMiddleware.isServerOrManager], reservationController.deleteReservation);
 
 export default router;

@@ -3,6 +3,7 @@ import * as reservationModel from '../models/reservation.model.js';
 const getReservations = async (req, res) => {
   try {
     const reservations = await reservationModel.getAll();
+    
     res.status(200).send(reservations);
   } catch (err) {
     res.status(500).send({ message: err.message });

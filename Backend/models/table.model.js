@@ -1,7 +1,7 @@
 import pool from '../config/database.js';
 
 const getAll = async () => {
-  const [rows] = await pool.query('SELECT * FROM tables');
+  const [rows] = await pool.promise().query('SELECT * FROM tables');
   return rows;
 };
 
