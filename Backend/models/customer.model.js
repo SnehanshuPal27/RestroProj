@@ -10,6 +10,13 @@ const getById = async (customerId) => {
   return rows[0];
 };
 
+const getByEmail = async (email) => {
+  console.log("in email")
+  console.log([email])
+  const [rows] = await pool.promise().query('SELECT * FROM customers WHERE Email = ?', email.Email);
+  return rows[0];
+};
+
 const create = async (customerData) => {
   const [result] = await pool.promise().query('INSERT INTO customers SET ?', customerData);
   return result.insertId;
@@ -31,4 +38,4 @@ const getHighestIndex=async()=>{
   return result;
 }
 
-export { getAll, getById, create, update, remove ,getHighestIndex};
+export { getAll, getById, create, update, remove ,getHighestIndex,getByEmail};

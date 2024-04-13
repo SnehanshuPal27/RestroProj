@@ -17,5 +17,24 @@ const getReservationCount = async () => {
   };
   
 
- export{getReservationCount,getAll,create} 
+  const update = (ReservationId, ReservationData) => {
+    return new Promise((resolve, reject) => {
+      pool.query('UPDATE reservations SET ? WHERE ReservationId = ?', [ReservationData, ReservationId], (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result.affectedRows > 0);
+        }
+      });
+    });
+  };
+
+  const remove = async (ReservationId) => {
+    const [result] = await pool.promise().query('DELETE FROM Reservations WHERE ReservationID = ?', [ReservationId]);
+    return result.affectedRows > 0;
+  };
+
+
+
+ export{getReservationCount,getAll,create,update,remove} 
   

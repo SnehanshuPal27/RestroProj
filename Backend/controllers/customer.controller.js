@@ -41,6 +41,21 @@ const getCustomer = async (req, res) => {
   }
 };
 
+const getCustomerByEmail = async (req, res) => {
+  try {
+    
+    console.log(req)
+    const customerEmail = req.body;
+    const customer = await customerModel.getByEmail(customerEmail);
+    if (!customer) {
+      return res.status(404).send({ message: 'Customer not found' });
+    }
+    res.status(200).send(customer);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
 const createCustomer = async (req, res) => {
   try {
     const newCustomerData = req.body;
@@ -79,4 +94,4 @@ const deleteCustomer = async (req, res) => {
   }
 };
 
-export { getCustomers, getCustomer, createCustomer, updateCustomer, deleteCustomer,getHighestCustomerIndex };
+export { getCustomers, getCustomer, createCustomer, updateCustomer, deleteCustomer,getHighestCustomerIndex,getCustomerByEmail };

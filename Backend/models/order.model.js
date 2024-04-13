@@ -18,6 +18,16 @@ const getAll = async () => {
   return rows;
 };
 
+const getAllOrderItems = async () => {
+  const [rows] = await pool.promise().query('SELECT * FROM orderItems');
+  return rows;
+};
+
+const getAllReadyItems = async () => {
+  const [rows] = await pool.promise().query('SELECT * FROM ReadyItems');
+  return rows;
+};
+
 const getById = async (orderId) => {
   const [rows] = await pool.promise().query('SELECT * FROM orders WHERE orderId = ?', [orderId]);
   return rows[0];
@@ -33,6 +43,10 @@ const createOrderItem=async (orderData)=>{
   return result.insertId;
 };
 
+const createReadyItem=async (orderData)=>{
+  const [result] = await pool.promise().query('INSERT INTO ReadyItems SET ?', orderData);
+  return result.insertId;
+};
 
 const update = async (orderId, orderData) => {
   const [result] = await pool.promise().query('UPDATE orders SET ? WHERE orderId = ?', [orderData, orderId]);
@@ -42,5 +56,14 @@ const update = async (orderId, orderData) => {
 const remove = async (orderId) => {
   const [result] = await pool.promise().query('DELETE FROM orders WHERE orderId = ?', [orderId]);
    return result.affectedRows > 0;}
-export{getAll,getById,create,update,remove,getCountOrders,getHighestOrderIndex,createOrderItem};
+
+   const removeorderItem = async (orderItemId) => {
+    const [result] = await pool.promise().query('DELETE FROM orderItems WHERE orderItemId = ?', [orderItemId]);
+     return result.affectedRows > 0;} 
+
+     const removeReadyItem = async (orderItemId) => {
+      const [result] = await pool.promise().query('DELETE FROM ReadyItems WHERE orderItemId = ?', [orderItemId]);
+       return result.affectedRows > 0;}      
+
+export{getAll,getById,create,update,remove,getCountOrders,getHighestOrderIndex,createOrderItem,getAllOrderItems,createReadyItem,removeorderItem,removeReadyItem,getAllReadyItems};
    

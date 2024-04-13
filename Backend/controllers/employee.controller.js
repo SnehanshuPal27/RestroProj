@@ -1,4 +1,5 @@
 import * as employeeModel from '../models/employee.model.js';
+import bcrypt from 'bcryptjs';
 const getManagerStats=async (req, res) => {
   try {
     const employees = await employeeModel.getManagerStats();
@@ -49,15 +50,27 @@ const updateEmployee = async (req, res) => {
   try {
     const employeeId = req.params.id;
     const updatedEmployee = req.body;
+
+    // Check if the request body contains a new password
+    if (updatedEmployee.Password) {
+      // Hash the new password
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(updatedEmployee.Password, salt);
+
+      // Replace the plaintext password with the hashed password
+      updatedEmployee.Password = hashedPassword;
+    }
+
     const result = await employeeModel.update(employeeId, updatedEmployee);
     if (!result) {
       return res.status(404).send({ message: 'Employee not found' });
     }
+
     res.status(200).send({ message: 'Employee updated successfully' });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
-};
+}
 
 const deleteEmployee = async (req, res) => {
   try {

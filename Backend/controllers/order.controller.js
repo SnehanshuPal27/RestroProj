@@ -20,6 +20,25 @@ const getOrders = async (req, res) => {
   }
 };
 
+const getAllOrderItems = async (req, res) => {
+  try {
+    const orders = await orderModel.getAllOrderItems();
+    res.status(200).send(orders);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+const getAllReadyItems = async (req, res) => {
+  try {
+    const orders = await orderModel.getAllReadyItems();
+    res.status(200).send(orders);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+
 const getHighestOrderIndex = async (req, res) => {
   try {
     console.log("in controller order")
@@ -70,6 +89,17 @@ const createOrderItem = async (req, res) => {
   }
 };
 
+const createReadyItem = async (req, res) => {
+  try {
+    const newOrderData = req.body;
+    console.log(newOrderData)
+    const orderId = await orderModel.createReadyItem(newOrderData);
+    res.status(201).send({ id: orderId, message: 'Order created successfully' });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
 const updateOrder = async (req, res) => {
   try {
     const orderId = req.params.id;
@@ -97,4 +127,30 @@ const deleteOrder = async (req, res) => {
   }
 };
 
-export { getOrders, getOrder, createOrder, updateOrder, deleteOrder,getCountOrders,getHighestOrderIndex,createOrderItem };
+const deleteOrderItem = async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const result = await orderModel.removeorderItem(orderId);
+    if (!result) {
+      return res.status(404).send({ message: 'Order not found' });
+    }
+    res.status(200).send({ message: 'Order deleted successfully' });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+const deleteReadyItem = async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const result = await orderModel.removeReadyItem(orderId);
+    if (!result) {
+      return res.status(404).send({ message: 'Order not found' });
+    }
+    res.status(200).send({ message: 'Order deleted successfully' });
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+export { getOrders, getOrder, createOrder, updateOrder, deleteOrder,getCountOrders,getHighestOrderIndex,createOrderItem,getAllOrderItems,createReadyItem,deleteOrderItem,deleteReadyItem,getAllReadyItems };

@@ -4,6 +4,7 @@ import * as authMiddleware from '../middleware/auth.middleware.js';
 
 const router = express.Router();
 
+router.post('/email', [authMiddleware.verifyToken], customerController.getCustomerByEmail);
 router.get('/highestCustomerIndex', [authMiddleware.verifyToken], customerController.getHighestCustomerIndex);
 router.get('/', [authMiddleware.verifyToken], customerController.getCustomers);
 
