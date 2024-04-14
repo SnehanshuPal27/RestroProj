@@ -69,6 +69,7 @@ const createCustomer = async (req, res) => {
 
 const updateCustomer = async (req, res) => {
   try {
+    console.log("in update customer")
     const customerId = req.params.id;
     const updatedCustomerData = req.body;
     const result = await customerModel.update(customerId, updatedCustomerData);

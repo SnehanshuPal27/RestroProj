@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import config from '../config/auth.config.js';
 
 const verifyToken = (req, res, next) => {
-  console.log(req)
+  // console.log(req)
   const token = req.headers.authorization;
   console.log(token);
   
@@ -25,6 +25,7 @@ const isManager = (req, res, next) => {
   // console.log("in Ismanager")
   // console.log(req.headers.userrole)
   // if (req.userRole !== 'Manager') {
+    console.log("in manager detect middleware")
     if (req.headers.userrole!== 'Manager') {
     return res.status(403).send({ message: 'Require Manager Role!' });
   }

@@ -1,12 +1,12 @@
 import pool from '../config/database.js';
 
 const getAll = async () => {
-  const [rows] = await pool.query('SELECT * FROM customers');
+  const [rows] = await pool.promise().query('SELECT * FROM customers');
   return rows;
 };
 
 const getById = async (customerId) => {
-  const [rows] = await pool.query('SELECT * FROM customers WHERE customerId = ?', [customerId]);
+  const [rows] = await pool.promise().query('SELECT * FROM customers WHERE customerId = ?', [customerId]);
   return rows[0];
 };
 
@@ -23,12 +23,14 @@ const create = async (customerData) => {
 };
 
 const update = async (customerId, customerData) => {
-  const [result] = await pool.query('UPDATE customers SET ? WHERE customerId = ?', [customerData, customerId]);
+  console.log("in cust update model")
+  console.log(customerData)
+  const [result] = await pool.promise().query('UPDATE customers SET ? WHERE customerId = ?', [customerData, customerId]);
   return result.affectedRows > 0;
 };
 
 const remove = async (customerId) => {
-  const [result] = await pool.query('DELETE FROM customers WHERE customerId = ?', [customerId]);
+  const [result] = await pool.promise().query('DELETE FROM customers WHERE customerId = ?', [customerId]);
   return result.affectedRows > 0;
 };
 

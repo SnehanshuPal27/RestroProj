@@ -33,21 +33,39 @@ const createInventoryItem = async (req, res) => {
   }
 };
 
+// const updateInventoryItem = async (req, res) => {
+//   try {
+//     // const { InventoryID, Quantity } = req.body;
+
+//     const result = await inventoryModel.updateInventory(req);
+
+//     if (result.message === 'No inventory item found with the provided InventoryID') {
+//       return res.status(404).send({ message: 'Inventory item not found' });
+//     }
+
+//     res.status(200).send({ message: 'Inventory item updated successfully' });
+//   } catch (err) {
+//     res.status(500).send({ message: err.message });
+//   }
+// };
+
 const updateInventoryItem = async (req, res) => {
   try {
-    // const { InventoryID, Quantity } = req.body;
-
-    const result = await inventoryModel.updateInventory(req);
-
-    if (result.message === 'No inventory item found with the provided InventoryID') {
-      return res.status(404).send({ message: 'Inventory item not found' });
+    const InventoryId = req.params.id;
+    const updatedInventoryData = req.body;
+    console.log("in up invtry")
+    console.log(InventoryId)
+    const result = await inventoryModel.update(InventoryId, updatedInventoryData);
+    if (!result) {
+      return res.status(404).send({ message: 'Menu item not found' });
     }
-
-    res.status(200).send({ message: 'Inventory item updated successfully' });
+    res.status(200).send({ message: 'Menu item updated successfully' });
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 };
+
+
 
 const deleteInventoryItem = async (req, res) => {
   try {

@@ -9,7 +9,7 @@ import orderRoutes from './routes/order.routes.js';
 import reservationRoutes from './routes/reservation.routes.js';
 import tableRoutes from './routes/table.routes.js';
 import inventoryRoutes from './routes/inventory.routes.js';
-// import supplierRoutes from './routes/supplier.routes.js';
+import supplierRoutes from './routes/supplier.routes.js';
 // import inventoryRoutes from './routes/inventory.routes.js';
 
 const app = express();
@@ -26,7 +26,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/reservations', reservationRoutes);
 app.use('/api/tables', tableRoutes);
 app.use('/api/inventory', inventoryRoutes);
-// app.use('/api/suppliers', supplierRoutes);
+app.use('/api/suppliers', supplierRoutes);
 // app.use('/api/inventory', inventoryRoutes);
 
 
