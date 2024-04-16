@@ -7,9 +7,9 @@ router.get('/ingridients', [authMiddleware.verifyToken], menuController.getMenuI
 router.get('/ingridients/:id', [authMiddleware.verifyToken], menuController.getMenuItemIngridient);
 router.get('/', [authMiddleware.verifyToken], menuController.getMenuItems);
 router.get('/:id', [authMiddleware.verifyToken], menuController.getMenuItem);
-router.post('/ingridientAdd', [authMiddleware.verifyToken, authMiddleware.isManager], menuController.createIngridient);
+router.post('/ingridientAdd', [authMiddleware.verifyToken, authMiddleware.isChefOrManager], menuController.createIngridient);
 
-router.post('/', [authMiddleware.verifyToken, authMiddleware.isManager], menuController.createMenuItem);
+router.post('/', [authMiddleware.verifyToken, authMiddleware.isChefOrManager], menuController.createMenuItem);
 router.put('/ing/:id1/:id2', [authMiddleware.verifyToken], menuController.updateIng);
 router.put('/:id', [authMiddleware.verifyToken], menuController.updateMenuItem);
 router.delete('/:id1/:id2', [authMiddleware.verifyToken], menuController.deleteMenuIngridient);

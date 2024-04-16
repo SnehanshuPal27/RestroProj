@@ -7,7 +7,7 @@ router.post('/managerAddEmp', [authMiddleware.verifyToken, authMiddleware.isMana
 router.get('/managerStats', [authMiddleware.verifyToken, authMiddleware.isManager], employeeController.getManagerStats);
 router.get('/chefCount', [authMiddleware.verifyToken, authMiddleware.isManager], employeeController.getCountChef);
 router.get('/', [authMiddleware.verifyToken, authMiddleware.isManager], employeeController.getEmployees);
-router.get('/:id', [authMiddleware.verifyToken, authMiddleware.isManager], employeeController.getEmployee);
+router.get('/:id', [authMiddleware.verifyToken], employeeController.getEmployee);
 router.put('/:id', [authMiddleware.verifyToken, authMiddleware.isManager], employeeController.updateEmployee);
 router.delete('/:id', [authMiddleware.verifyToken, authMiddleware.isManager], employeeController.deleteEmployee);
 
